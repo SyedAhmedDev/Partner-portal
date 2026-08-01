@@ -22,6 +22,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       }
     `);
     
+    
     const data = await response.json();
     const metaobject = data.data?.metaobjectByHandle;
 
