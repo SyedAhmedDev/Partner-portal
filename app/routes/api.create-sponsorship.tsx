@@ -92,6 +92,13 @@ export async function action({ request }: ActionFunctionArgs) {
       { key: "rate", value: ratesString } 
     ];
 
+    // Handle the new discount fields
+    if (body.discountType && body.discountValue) {
+      metaobjectFields.push({ key: "discount_type", value: body.discountType });
+      // Ensure the value is converted to a string for the GraphQL MetaobjectFieldInput
+      metaobjectFields.push({ key: "discount_value", value: body.discountValue.toString() });
+    }
+
     // If the image uploaded successfully, attach its Shopify ID to the Metaobject
     if (uploadedFileId) {
       metaobjectFields.push({ key: "thumbnail", value: uploadedFileId });
