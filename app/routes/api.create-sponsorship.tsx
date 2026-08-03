@@ -92,6 +92,17 @@ export async function action({ request }: ActionFunctionArgs) {
       { key: "rate", value: ratesString } 
     ];
 
+
+    // Push new Custom Label if provided
+    if (body.customLabel) {
+      metaobjectFields.push({ key: "custom_label", value: body.customLabel });
+    }
+
+    // Push Package Type (Defaults to fixed if empty)
+    metaobjectFields.push({ key: "package_type", value: body.packageType || "fixed" });
+
+
+    
     // Handle the new discount fields
     if (body.discountType && body.discountValue) {
       metaobjectFields.push({ key: "discount_type", value: body.discountType });
