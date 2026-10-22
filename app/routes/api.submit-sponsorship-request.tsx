@@ -2,8 +2,8 @@ import { json } from "@remix-run/node";
 import { authenticate } from "../shopify.server";
 
 export async function action({ request }: { request: Request }) {
-  // 1. Authenticate the request and get the session
-  const { session, admin } = await authenticate.public.appProxy(request);
+  // 1. Authenticate the request and get the admin client
+  const { admin } = await authenticate.public.appProxy(request);
 
   // Note: authenticate.public.appProxy(request) returns the admin client
   // if your shopify.server.ts is configured correctly.
@@ -42,9 +42,7 @@ export async function action({ request }: { request: Request }) {
       { key: "slot_rate", value: data.slot_rate },
       { key: "slot_placement", value: data.slot_placement },
       { key: "slot_thumbnail", value: data.slot_thumbnail },
-      { key: "slot_start", value: data.slot_start },
-      { key: "slot_end", value: data.slot_end },
-      { key: "message", value: data.message },
+      { key: "message", value: typeof data.message === "string" ? data.message : "" },
       { key: "partner_name", value: data.partner_name },
       { key: "partner_email", value: data.partner_email },
       { key: "status", value: data.status },
